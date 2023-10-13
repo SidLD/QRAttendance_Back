@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import userAPI from './api/UserAPI.js'
 import mongoose from 'mongoose'
+import attendaceAPI from './api/AttendanceAPI.js'
 
 //Setup
 const app = express()
@@ -14,7 +15,7 @@ app.use(express.json());
 
 //Start of API
 app.use(userAPI)
-
+app.use(attendaceAPI)
 //END of API
 app.post('*', (req, res) => {
     res.status(404).send({message: "URI not FOUND"})

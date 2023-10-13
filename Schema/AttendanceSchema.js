@@ -7,7 +7,17 @@ const attendanceSchema = Schema(
       required: true,
     },
     timestamps: true,
+    attendanceDate:{
+      type: Date,
+      default: now()
+    },
+    clockInStart: Date,
+    clockOutCutOff: Date,
     clockInCutOff: Date,
+    type: {
+      type: String,
+      enum: ['one-time', 'daily']
+    },
     daysInAWeek: [
         {
             type : String,
