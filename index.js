@@ -10,9 +10,12 @@ import recordAPI from './api/RecordAPI.js'
 //Setup
 const app = express()
 dotenv.config()
-app.use(bodyParser.json(), bodyParser.urlencoded({extended:false}));
-app.use(cors())
-app.use(express.json());
+const urlencodedParser = bodyParser.urlencoded({extended:false})
+app.use(bodyParser.json(), urlencodedParser);
+const corsOptions = {
+    origin: process.env.FRONT_URI // frontend URI (ReactJS)
+}
+app.use(cors(corsOptions));
 
 //Start of API
 app.use(userAPI)
