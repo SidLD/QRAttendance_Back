@@ -44,11 +44,11 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
     try {
         let params = req.body
-        const hashedPassword = await bcrypt.hash(params.password, 10);
         const user = await User.findOne({ email: params.email })
         if(user){
             res.status(401).send({message:"User Already Exist"})
         }else{
+            const hashedPassword = await bcrypt.hash(params.password, 10);
             const dbUser = new User({
                 firstName: params.firstName,
                 lastName: params.lastName,

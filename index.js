@@ -5,6 +5,7 @@ import cors from 'cors'
 import userAPI from './api/UserAPI.js'
 import mongoose from 'mongoose'
 import attendaceAPI from './api/AttendanceAPI.js'
+import recordAPI from './api/RecordAPI.js'
 
 //Setup
 const app = express()
@@ -15,6 +16,7 @@ app.use(express.json());
 
 //Start of API
 app.use(userAPI)
+app.use(recordAPI)
 app.use(attendaceAPI)
 //END of API
 app.post('*', (req, res) => {

@@ -5,13 +5,19 @@ const recordSchema = Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       required: true,
+      ref: 'User'
+    },
+    attendance: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+      ref: "Attendance"
     },
     date:{
-        type : Date,
-        default: now()
+        day: String,
+        month: String,
+        year: String,
     },
     clockIn: Date,
-    clockInCutOff: Date,
     clockOut: Date
 
   }

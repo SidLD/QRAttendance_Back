@@ -5,25 +5,23 @@ const attendanceSchema = Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       required: true,
+      ref: 'User'
     },
-    timestamps: true,
-    attendanceDate:{
-      type: Date,
-      default: now()
-    },
-    clockInStart: Date,
-    clockOutCutOff: Date,
+    title: String,
+    clockIn: Date,
     clockInCutOff: Date,
-    type: {
-      type: String,
-      enum: ['one-time', 'daily']
-    },
+    clockOut: Date,
+    clockOutCutOff: Date,
     daysInAWeek: [
         {
-            type : String,
-            enum: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+          required: true,
+          type : String,
+          enum: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
         }
     ]
+  },
+  {
+    timestamps: true,
   }
 );
 
