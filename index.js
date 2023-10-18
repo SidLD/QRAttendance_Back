@@ -16,7 +16,7 @@ const corsOptions = {
     origin: process.env.FRONT_URI // frontend URI (ReactJS)
 }
 app.use(cors(corsOptions));
-
+console.log("sd")
 //Start of API
 app.use(userAPI)
 app.use(recordAPI)
