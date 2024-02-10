@@ -64,7 +64,7 @@ export const clockIn = async (req, res) => {
                 }
                 if(newRecord){
                     await newRecord.save()
-                    res.status(200).send({ok:true, data:`User ${ifUserExist.firstName} ${ifUserExist.lastName} Succeffully ${params.type}` })
+                    res.status(200).send({ok:true, data:`User ${ifUserExist.firstName} ${ifUserExist.lastName} Succeffully ${params.type == 1 ? "Time In":"Time Out"}` })
                 }else{
                     res.status(400).send({ok:true, data:`Attendance is Close` })
                 }
@@ -90,7 +90,7 @@ export const clockIn = async (req, res) => {
                     }
                 }
                 if(isOpen){
-                    res.status(200).send({ok:true, data:`User ${ifUserExist.firstName} ${ifUserExist.lastName} Succeffully ${params.type}` })
+                    res.status(200).send({ok:true, data:`User ${ifUserExist.firstName} ${ifUserExist.lastName} Succeffully ${params.type == 1 ? "Time In":"Time Out"}` })
                 }else{
                     res.status(400).send({ok:true, data:`Attendance is Either Close or You already have record` })
                 }
