@@ -17,6 +17,8 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+console.log('sad');
+
 //Start of API
 app.use(userAPI)
 app.use(recordAPI)
