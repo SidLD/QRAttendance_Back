@@ -16,9 +16,6 @@ export const clockIn = async (req, res) => {
     try {
         const params = req.body
         const ifUserExist = await User.findOne({_id: new mongoose.Types.ObjectId(params.userId)})
-        console.log(params);
-        res.status(400).send({ok:true, data:params })
-        return;
         if(ifUserExist){
             const now = new Date()
             const attendance = await Attendance.findOne({ _id:new mongoose.Types.ObjectId(params.attendanceId),});
