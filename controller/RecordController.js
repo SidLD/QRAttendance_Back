@@ -32,6 +32,8 @@ export const clockIn = async (req, res) => {
                     //Check if can Attendance
                     let timeIn = new Date(attendance.clockIn)
                     let timeInCutOff = new Date(attendance.clockInCutOff)
+                    timeIn.setDate(now.getDate())
+                    timeInCutOff.setDate(now.getDate())
                     if( timeIn <= now && timeInCutOff >= now){
                          newRecord = new Record({
                             user: new mongoose.Types.ObjectId(params.userId),
@@ -48,6 +50,8 @@ export const clockIn = async (req, res) => {
                 }else if(params.type == 2){
                     let timeOut = new Date(attendance.clockOut)
                     let timeOutCutOff = new Date(attendance.clockOutCutOff)
+                    timeOut.setDate(now.getDate())
+                    timeOutCutOff.setDate(now.getDate())
                     if( timeOut <= now && timeOutCutOff >= now){
                         newRecord = new Record({
                             user: new mongoose.Types.ObjectId(params.userId),
@@ -70,11 +74,12 @@ export const clockIn = async (req, res) => {
                 }
             }else{
                 let isOpen  = false;
-                console.log(params);
                 if(params.type == 1 && !ifRecord.clockIn){
                     //Check if can Attendance
                     let timeIn = new Date(attendance.clockIn)
                     let timeInCutOff = new Date(attendance.clockInCutOff)
+                    timeIn.setDate(now.getDate())
+                    timeInCutOff.setDate(now.getDate())
                     if( timeIn <= now && timeInCutOff >= now){
                         isOpen = true;
                         await Record.updateOne({_id: new mongoose.Types.ObjectId(ifRecord._id)}, {clockIn: new Date()})
@@ -84,6 +89,8 @@ export const clockIn = async (req, res) => {
                 if(params.type == 2){
                     let timeOut = new Date(attendance.clockOut)
                     let timeOutCutOff = new Date(attendance.clockOutCutOff)
+                    timeOut.setDate(now.getDate())
+                    timeOutCutOff.setDate(now.getDate())
                     if( timeOut <= now && timeOutCutOff >= now){
                         isOpen = true;
                         await Record.updateOne({_id: new mongoose.Types.ObjectId(ifRecord._id)}, {clockOut: new Date()})
@@ -123,25 +130,26 @@ export const getAttendanceRecord = async (req, res) => {
 
 export const getAttendanceRecordWithDate = async (req, res) => {
     try {
-        console.log(req.user.role)
         if(req.user.role === 'admin') {
             const params = req.query;
             const data = await Record.where({
                 'date.day': params.day,
                 'date.month': params.month,
-                'date.year': params.year
+                'date.year': params.year,
             })
-            .populate('user', 'firstName lastName clockIn clockOut')
             .populate('attendance', 'title')
+            .populate('user', 'firstName lastName clockIn clockOut')
             .sort('attendance.title')
-            console.log(data)
-            res.status(200).send({ok:true, data })
+            res.status(200).send({ok:true, data:data.filter(item => {
+                return item.attendance
+            })})
         }else{
             const params = req.query;
             const data = await Record.where({
                 'date.day': params.day,
                 'date.month': params.month,
                 'date.year': params.year,
+                attendance: {$ne: null},
                 user: new mongoose.Types.ObjectId(req.user.id)
             })
             .populate('user', 'firstName lastName clockIn clockOut')
