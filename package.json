@@ -8,7 +8,7 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server" : "nodemon index.js",
-    "install-server": "pnpm install"
+    "install-server": "pnpm install @v7"
   },
   "keywords": [],
   "author": "",
