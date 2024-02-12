@@ -8,7 +8,7 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "nodemon index.js",
-    "install-server": "corepack prepare pnpm@7.13.6 --activate"
+    "install-server": ""
   },
   "keywords": [],
   "author": "",
